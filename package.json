@@ -9,7 +9,11 @@
   "author": "Ashutosh Kumar",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mongoose": "^5.2.8",
+    "passport": "^0.4.0",
+    "passport-google-oauth2": "^0.1.6"
   }
 }
