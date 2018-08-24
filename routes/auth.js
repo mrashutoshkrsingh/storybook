@@ -1,14 +1,17 @@
-var express=require("express");
-var app=express.Router()
-var passport=require("passport")
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
 
+router.get('/google', passport.authenticate('google', {scope: ['profile', 'email']}));
 
-app.get('/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-
-app.get( '/google/callback',
-	passport.authenticate( 'google', {
-		successRedirect: '/auth/google/success',
-		failureRedirect: '/auth/google/failure'
+router.get('/google/callback',
+passport.authenticate('google', {
+				successRedirect : '/dashboard',
+				failureRedirect : '/'
 }));
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
 
-module.exports=app
+module.exports = router;
