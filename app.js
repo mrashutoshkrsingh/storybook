@@ -3,10 +3,10 @@ var app=express();
 var cookieParser = require('cookie-parser')
 var passport=require("passport"),
 session=require("express-session"),
+exphbs=require("express-handlebars"),
 mongoose=require('mongoose')
 mongoose.connect("mongodb://localhost:27017/storybook",{useNewUrlParser:true})
 .then(console.log("database connected"));
-app.set("view engine","ejs");
 app.use(cookieParser())
 app.use(session({
   secret: 'secret',
@@ -15,6 +15,10 @@ app.use(session({
 }));
 //Passport config
 require('./config/passport')(passport);
+
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+ 
 
 app.use(passport.initialize());
 app.use(passport.session());
