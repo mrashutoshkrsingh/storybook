@@ -1,5 +1,6 @@
 var express=require("express");
 var app=express();
+var path=require("path")
 var cookieParser = require('cookie-parser')
 var passport=require("passport"),
 session=require("express-session"),
@@ -15,7 +16,7 @@ app.use(session({
 }));
 //Passport config
 require('./config/passport')(passport);
-
+app.use(express.static(path.join(__dirname,"public")))
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
  
@@ -31,6 +32,8 @@ next()
 //auth routes
 var auth=require("./routes/auth")
 var index=require("./routes/index")
+var stories=require("./routes/stories")
+app.use("/stories",stories)
 app.use("/auth",auth)
 app.use("/",index);
 
